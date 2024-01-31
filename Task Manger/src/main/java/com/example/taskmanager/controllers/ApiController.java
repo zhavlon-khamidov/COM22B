@@ -2,8 +2,10 @@ package com.example.taskmanager.controllers;
 
 import com.example.taskmanager.entities.Task;
 import com.example.taskmanager.repositories.TaskRepository;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @RestController
@@ -33,15 +35,35 @@ public class ApiController {
     }
 
 
-    //TODO: HW create put and delete requests
-    public Task updateTask(@PathVariable Long id, @RequestBody Task updatedTask) {
-        return null;
+
+    @PutMapping("task/{id}")
+    public ResponseEntity<Task> updateTask(@PathVariable Long id, @RequestBody Task updatedTask) {
+        if (!taskRepository.existsById(id)) {
+            return ResponseEntity.notFound().build();
+        }
+        updatedTask.setId(id);
+        return ResponseEntity.ok().body(taskRepository.save(updatedTask));
     }
 
 
+    @DeleteMapping("task/{id}")
     public Task deleteTask(@PathVariable Long id) {
-        return null;
+        Optional<Task> optionalTask = taskRepository.findById(id);
+        taskRepository.deleteById(id);
+        if (optionalTask.isPresent()) {
+            return optionalTask.get();
+        } else {
+            return null;
+        }
     }
+
+    //TODO: HW create PATCH request.
+
+    // The difference between PUT and PATCH request is
+    // for put request you have to provide all fields of data
+    // but for patch request you can provide only editing fields
+    // so your program have to recognize provided fields and edit
+    // only that field in DB
 
 
 }
