@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 public class InitData implements CommandLineRunner {
 
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) {
         log.atWarn().log("Initializing data");
         Book book1 = Book.builder()
                 .title("Database")
@@ -25,6 +25,8 @@ public class InitData implements CommandLineRunner {
                 .edition(6)
                 .build();
 
+
+        // TODO: create 2 more books save all books to database
 
     }
 }
