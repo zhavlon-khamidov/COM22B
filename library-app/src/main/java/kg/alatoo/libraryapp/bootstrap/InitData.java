@@ -34,7 +34,10 @@ public class InitData implements CommandLineRunner {
 
         bookRepository.saveAll(List.of(book1, book2));
 
-        // TODO: create 2 more books save all books to database
+        /*
+        TODO: create at least 3 publisher and each publisher must have at least by 2 books,
+            and each book should have 1 or many authors and save to DB
+           */
 
     }
 }
