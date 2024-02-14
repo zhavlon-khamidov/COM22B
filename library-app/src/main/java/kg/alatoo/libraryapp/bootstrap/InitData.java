@@ -1,13 +1,20 @@
 package kg.alatoo.libraryapp.bootstrap;
 
 import kg.alatoo.libraryapp.entities.Book;
+import kg.alatoo.libraryapp.repostiories.BookRepository;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 @Log4j2
+@RequiredArgsConstructor
 public class InitData implements CommandLineRunner {
+
+    private final BookRepository bookRepository;
 
     @Override
     public void run(String... args) {
@@ -25,6 +32,7 @@ public class InitData implements CommandLineRunner {
                 .edition(6)
                 .build();
 
+        bookRepository.saveAll(List.of(book1, book2));
 
         // TODO: create 2 more books save all books to database
 

@@ -1,10 +1,9 @@
 package kg.alatoo.libraryapp.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
-import lombok.extern.log4j.Log4j;
+
+import java.util.List;
 
 /*@RequiredArgsConstructor
 @Getter
@@ -16,10 +15,12 @@ import lombok.extern.log4j.Log4j;
 @Data
 @Builder
 @Entity
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Book {
 
     @Id
     @GeneratedValue
+    @EqualsAndHashCode.Include
     private Long id;
     private String title;
     private String isbn;
@@ -27,4 +28,9 @@ public class Book {
     @Builder.Default
     private int edition = 1;
 
+    @ManyToOne
+    private Publisher publisher;
+
+    @ManyToMany
+    private List<Author> authors;
 }
