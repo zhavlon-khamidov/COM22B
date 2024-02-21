@@ -16,11 +16,14 @@ import java.util.List;
 @Builder
 @Entity
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@Table(uniqueConstraints = @UniqueConstraint(name = "uniq_title_ed",
+        columnNames = {"title","edition"}))
 public class Book {
 
     @Id
     @GeneratedValue
     @EqualsAndHashCode.Include
+    @Column(columnDefinition = "varchar(10)")
     private Long id;
     private String title;
     private String isbn;
