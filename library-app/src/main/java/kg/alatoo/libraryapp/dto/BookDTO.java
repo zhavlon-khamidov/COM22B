@@ -17,4 +17,6 @@ public class BookDTO {
     private int publishedYear;
     @Builder.Default
     private int edition = 1;
+
+    private PublisherDTO publisher;
 }
