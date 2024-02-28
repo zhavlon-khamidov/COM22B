@@ -6,4 +6,6 @@ import java.util.Optional;
 
 public interface BookService {
     Optional<BookDTO> getBookById(Long id);
+
+    BookDTO saveBook(BookDTO newBook);
 }

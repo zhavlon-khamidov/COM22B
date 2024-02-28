@@ -30,4 +30,13 @@ public class BookServiceJPA implements BookService {
                 )
         );
     }
+
+    @Override
+    public BookDTO saveBook(BookDTO newBook) {
+        return bookMapper
+                .bookToBookDto(
+                        bookRepository.save(bookMapper.bookDtoToBook(newBook))
+                );
+    }
+
 }
