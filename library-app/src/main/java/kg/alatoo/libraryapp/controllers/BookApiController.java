@@ -4,6 +4,7 @@ import kg.alatoo.libraryapp.dto.BookDTO;
 import kg.alatoo.libraryapp.services.BookService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
@@ -15,7 +16,7 @@ public class BookApiController {
     private final BookService bookService;
 
     @PostMapping("/api/v1/book")
-    public ResponseEntity<BookDTO> createBook(@RequestBody BookDTO newBook) {
+    public ResponseEntity<BookDTO> createBook(@Validated @RequestBody BookDTO newBook) {
         newBook.setId(null);
         BookDTO savedBook = bookService.saveBook(newBook);
         return ResponseEntity

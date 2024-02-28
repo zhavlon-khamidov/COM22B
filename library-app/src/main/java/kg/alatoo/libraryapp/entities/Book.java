@@ -1,6 +1,8 @@
 package kg.alatoo.libraryapp.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.util.List;
@@ -24,6 +26,9 @@ public class Book {
     @GeneratedValue
     @EqualsAndHashCode.Include
     private Long id;
+    @NotNull
+    @NotBlank
+    @Column(nullable = false)
     private String title;
     private String isbn;
     private int publishedYear;
