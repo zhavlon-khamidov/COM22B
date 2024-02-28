@@ -23,7 +23,6 @@ public class Book {
     @Id
     @GeneratedValue
     @EqualsAndHashCode.Include
-    @Column(columnDefinition = "varchar(10)")
     private Long id;
     private String title;
     private String isbn;
