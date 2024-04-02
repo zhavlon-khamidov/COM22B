@@ -35,7 +35,7 @@ public class Book {
     @Builder.Default
     private int edition = 1;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private Publisher publisher;
 
     @ManyToMany

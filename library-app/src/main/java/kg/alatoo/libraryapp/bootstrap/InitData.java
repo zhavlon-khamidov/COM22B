@@ -1,6 +1,7 @@
 package kg.alatoo.libraryapp.bootstrap;
 
 import kg.alatoo.libraryapp.entities.Book;
+import kg.alatoo.libraryapp.entities.Publisher;
 import kg.alatoo.libraryapp.repostiories.BookRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -20,10 +21,17 @@ public class InitData implements CommandLineRunner {
     @Override
     public void run(String... args) {
         log.atWarn().log("Initializing data");
+
+        Publisher publisher = Publisher.builder()
+                .name("Test Publisher")
+                .email("test@publisher.com")
+                .build();
+
         Book book1 = Book.builder()
                 .title("Database")
                 .publishedYear(2018)
                 .isbn("151345-13151")
+                .publisher(publisher)
                 .build();
 
         Book book2 = Book.builder()
@@ -31,11 +39,14 @@ public class InitData implements CommandLineRunner {
                 .publishedYear(2023)
                 .isbn("454354314354")
                 .edition(6)
+                .publisher(publisher)
                 .build();
 
         bookRepository.saveAll(List.of(book1, book2));
 
-        generateBooks(10000);
+//        generateBooks(10000);
+
+
 
         /*
         TODO: create at least 3 publisher and each publisher must have at least by 2 books,

@@ -1,9 +1,6 @@
 package kg.alatoo.libraryapp.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.Set;
@@ -23,7 +20,8 @@ public class Publisher {
     private String name;
     private String email;
 
-    @OneToMany(mappedBy = "publisher")
+    @OneToMany(mappedBy = "publisher", fetch = FetchType.EAGER)
+    @ToString.Exclude
     private Set<Book> books;
 
 }
