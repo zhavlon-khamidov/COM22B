@@ -2,7 +2,9 @@ package kg.alatoo.libraryapp.bootstrap;
 
 import kg.alatoo.libraryapp.entities.Book;
 import kg.alatoo.libraryapp.entities.Publisher;
+import kg.alatoo.libraryapp.entities.User;
 import kg.alatoo.libraryapp.repostiories.BookRepository;
+import kg.alatoo.libraryapp.services.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.boot.CommandLineRunner;
@@ -17,6 +19,7 @@ import java.util.Random;
 public class InitData implements CommandLineRunner {
 
     private final BookRepository bookRepository;
+    private final UserService userService;
 
     @Override
     public void run(String... args) {
@@ -46,6 +49,14 @@ public class InitData implements CommandLineRunner {
 
 //        generateBooks(10000);
 
+        User user = User.builder()
+                .username("user")
+                .password("user")
+                .email("user@example.com")
+                .enabled(true)
+                .build();
+
+        userService.createUser(user);
 
 
         /*

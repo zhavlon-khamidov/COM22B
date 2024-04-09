@@ -9,6 +9,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
@@ -23,15 +25,23 @@ public class SecurityConfig {
         http.authorizeHttpRequests(req -> req
                 .requestMatchers(HttpMethod.POST,"/api/v1/book/**").hasRole("ADMIN")
                 .requestMatchers(HttpMethod.GET, "/api/v1/book").permitAll()
+                .requestMatchers(HttpMethod.POST, "/api/v1/auth/register").anonymous()
                 .requestMatchers("/api/v1/user/register").anonymous()
                 .anyRequest().authenticated());
         http.httpBasic(Customizer.withDefaults());
+
+        http.exceptionHandling(
+                e-> e.accessDeniedHandler(
+                        (req, res, ex) -> res.getWriter().println(ex.getMessage())
+                )
+        );
 
         return http.build();
     }
 
 
-    @Bean
+
+//    @Bean
     public UserDetailsService userDetailsService() {
         UserDetails user = User.withDefaultPasswordEncoder()
                 .username("user")
@@ -46,5 +56,10 @@ public class SecurityConfig {
 
 
         return new InMemoryUserDetailsManager(user, admin);
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
 }
